@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-<link rel="stylesheet" href="style.css">
 
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hogwarts Legacy</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -19,36 +20,54 @@
     </nav>
     <h1>Casas disponíveis</h1>
     <p>A escolha da casa mudara um pouco sua história, mas tera que jogar nas 4 para platinar</p>
-    <section>
-        <div class="casas">
-            <h2>Grifinória</h2>
-            <p>Bravura, coragem, ousadia e cavalheirismo.</p>
-            <img src="https://static.wixstatic.com/media/71a6c2_d1d111b6b11c46a58bb83da5b0af5924~mv2.png/v1/fill/w_681,h_681,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/escudo%20gryffindor-01.png" alt="Grifindor">
-        </div>
-        
-        <div class="casas">
-            <img src="https://static.wikia.nocookie.net/harrypotter/images/a/a5/Slytherincostodarms.png/revision/latest?cb=20210421190019&path-prefix=pt-br" alt="Slytherin">
-            <h2>Sonserina</h2>
-            <p>Ambição, astúcia, determinação e liderança.</p>
+    
+    <section class = "casas">
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="casa-card">
+                        <h2 class="card-title">Grifinória</h2>
+                        <p class="card-text">Bravura, coragem, ousadia e cavalheirismo.</p>
+                        <img src="https://static.wixstatic.com/media/71a6c2_d1d111b6b11c46a58bb83da5b0af5924~mv2.png/v1/fill/w_681,h_681,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/escudo%20gryffindor-01.png" alt="Grifindor">
+                    </div>
+                </div>
+            </div>    
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="casa-card">
+                        <h2 class="card-title">Sonserina</h2>
+                        <p class="card-text">Ambição, astúcia, determinação e liderança.</p>
+                        <img src="https://static.wikia.nocookie.net/harrypotter/images/a/a5/Slytherincostodarms.png/revision/latest?cb=20210421190019&path-prefix=pt-br" alt="Slytherin">
+                    </div>    
+                </div>
+            </div>
+            <div class="col-md-3">    
+                <div class="card h-100">
+                    <div class="casa-card">
+                        <h2 class="card-title">Corvinal</h2>
+                        <p class="card-text">Inteligência, criatividade, sabedoria e sagacidade.</p>
+                        <img src="https://static.wikia.nocookie.net/harrypotter/images/0/03/184-1840811_ravenclaw-crest-harry-potter-harry-potter-ravenclaw-house.png/revision/latest?cb=20210421183049&path-prefix=pt-br" alt="Ravenclaw">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">    
+                <div class="card h-100">
+                    <div class="casa-card">
+                        <h2 class="card-title">Lufa-Lufa</h2>
+                        <p class="card-text">Lealdade, dedicação, paciência e jogo limpo.</p>
+                        <img src="https://static.wikia.nocookie.net/harrypotter/images/b/b2/453-4537332_yellow-banner-clipart.png/revision/latest?cb=20210421191904&path-prefix=pt-br" alt="Huflepuff">
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="casas">
-            <h2>Corvinal</h2>
-            <p>Inteligência, criatividade, sabedoria e sagacidade.</p>
-            <img src="https://static.wikia.nocookie.net/harrypotter/images/0/03/184-1840811_ravenclaw-crest-harry-potter-harry-potter-ravenclaw-house.png/revision/latest?cb=20210421183049&path-prefix=pt-br" alt="Ravenclaw">
-        </div>
-         
-        <div class="casas">
-            <h2>Lufa-Lufa</h2>
-            <p>Lealdade, dedicação, paciência e jogo limpo.</p>
-            <img src="https://static.wikia.nocookie.net/harrypotter/images/b/b2/453-4537332_yellow-banner-clipart.png/revision/latest?cb=20210421191904&path-prefix=pt-br" alt="Huflepuff">
-        </div>
     </section>
-
-    <footer>
-        <p>Daniel Dal Pra</p>
-        <p>2026</p>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<footer>
+    <p>Daniel Dal Pra</p>
+    <p>2026</p>
+</footer>
 </html>
