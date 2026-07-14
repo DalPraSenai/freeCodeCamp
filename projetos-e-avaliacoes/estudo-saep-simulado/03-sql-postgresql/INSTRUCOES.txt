@@ -1,0 +1,38 @@
+EXERCICIO 03 - SQL POSTGRESQL
+
+Tempo alvo: 45 a 70 minutos.
+
+Voce vai treinar SQL puro no pgAdmin antes de misturar com Node.
+
+Tema:
+Biblioteca pequena.
+
+Tarefas:
+1. Criar banco chamado biblioteca_saep.
+2. Criar tabela livros.
+3. Inserir pelo menos 5 livros.
+4. Listar todos os livros.
+5. Buscar livros por categoria.
+6. Atualizar a quantidade de um livro.
+7. Deletar um livro pelo id.
+8. Fazer SELECT final para conferir.
+
+Campos obrigatorios:
+- id SERIAL PRIMARY KEY
+- titulo VARCHAR(100) NOT NULL
+- autor VARCHAR(100)
+- categoria VARCHAR(50)
+- preco NUMERIC(10, 2)
+- quantidade INTEGER
+
+Comandos que voce precisa dominar:
+- CREATE DATABASE
+- CREATE TABLE
+- INSERT INTO
+- SELECT
+- WHERE
+- UPDATE
+- DELETE
+
+Checkpoint:
+Voce terminou quando consegue explicar o que cada comando faz sem olhar.

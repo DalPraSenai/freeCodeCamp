@@ -1,0 +1,25 @@
+PLANO OPCIONAL PARA AS 2 SEMANAS DE FERIAS
+
+Se depois do simulado voce quiser estudar para a prova real do SAEP, siga isso:
+
+Semana 1:
+1. Refazer a Loja do Alquimista do zero.
+2. Criar 3 variacoes:
+   - biblioteca
+   - farmacia
+   - sistema de tarefas
+3. Separar o projeto em modulos.
+4. Criar um servidor HTTP simples.
+
+Semana 2:
+1. Aprender Express.
+2. Criar uma API CRUD.
+3. Conectar front-end simples com back-end.
+4. Fazer um mini sistema completo:
+   - tela HTML
+   - formulario
+   - back-end
+   - banco PostgreSQL
+
+Meta da prova real:
+Nao depender de decorar. Entender o padrao.

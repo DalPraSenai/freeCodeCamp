@@ -1,7 +1,7 @@
 .navbar{
     background-color: #0b0f1a;
     color: #e8dcc8;
-    font-family: 'Cinzel';
+    font-family: 'Cinzel', serif;
     padding-left: 18px;
     padding-right: 18px;
     font-size: larger;
@@ -10,7 +10,7 @@
 .navbar .nav-link{
     color: #e8dcc8;
     font-size: large;
-    font-family: 'Cinzel';
+    font-family: 'Cinzel', serif;
 }
 
 h1{

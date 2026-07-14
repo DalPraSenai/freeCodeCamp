@@ -1,0 +1,35 @@
+EXERCICIO 01 - AQUECIMENTO NODE NO TERMINAL
+
+Tempo alvo: 35 a 50 minutos.
+
+Voce vai criar um programa de cadastro simples sem banco.
+Tudo fica em memoria, usando array.
+
+Tema:
+Cadastro de itens de uma mochila de aventureiro.
+
+Requisitos:
+1. Criar um array chamado itens.
+2. Criar a funcao adicionarItem(nome, tipo, quantidade).
+3. Criar a funcao listarItens().
+4. Criar a funcao buscarItemPorNome(nome).
+5. Criar a funcao removerItem(nome).
+6. Criar um menu no terminal usando prompt-sync.
+
+Menu esperado:
+1 - Adicionar item
+2 - Listar itens
+3 - Buscar item
+4 - Remover item
+0 - Sair
+
+Regras:
+- Nome nao pode ser vazio.
+- Quantidade precisa ser maior que zero.
+- Se tentar remover item que nao existe, mostrar mensagem clara.
+
+Checkpoint:
+Voce terminou quando consegue usar o sistema inteiro pelo terminal sem mexer no codigo.
+
+Depois de terminar:
+Refaca do zero uma vez, trocando o tema para "estoque de mercado".

@@ -1,0 +1,57 @@
+ESTUDO SAEP - PLANO DE ATAQUE
+
+Contexto:
+- Hoje: algumas horas a tarde + noite.
+- Quarta: noite.
+- Quinta: simulado.
+
+Objetivo:
+Chegar no simulado sabendo montar um sistema estilo Loja do Alquimista sem copiar.
+
+Ordem obrigatoria:
+1. Node no terminal
+2. Funcoes
+3. Modulos
+4. SQL basico
+5. Node + PostgreSQL
+6. CRUD completo
+7. Menu interativo
+
+HOJE A TARDE
+Fazer:
+- 01-aquecimento-node-terminal
+- 02-modulos-node
+
+Meta:
+- Conseguir criar funcoes sem travar.
+- Conseguir separar codigo em arquivos.
+
+HOJE A NOITE
+Fazer:
+- 03-sql-postgresql
+- comecar 04-crud-postgresql-terminal
+
+Meta:
+- Entender CREATE TABLE, INSERT, SELECT, UPDATE e DELETE.
+- Entender try/catch/finally.
+- Conectar Node no banco.
+
+QUARTA A NOITE
+Fazer:
+- terminar 04-crud-postgresql-terminal
+- fazer 05-simulado-cronometrado sem olhar o projeto alquimista
+
+Meta:
+- Fazer uma mini loja do zero em ate 2 horas.
+
+QUINTA ANTES DO SIMULADO
+Revisar:
+- estrutura do Client do pg
+- client.connect()
+- client.query()
+- parametros $1, $2, $3
+- finally com client.end()
+- menu com while
+
+Regra de ouro:
+Nao estude lendo. Estude recriando.

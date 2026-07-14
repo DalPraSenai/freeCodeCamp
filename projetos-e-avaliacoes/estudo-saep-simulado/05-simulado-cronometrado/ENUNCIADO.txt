@@ -1,0 +1,58 @@
+SIMULADO CRONOMETRADO - FAZER SEM OLHAR
+
+Tempo maximo: 2 horas.
+
+Tema:
+Sistema de Biblioteca Arcana.
+
+Voce precisa criar um sistema Node + PostgreSQL no terminal.
+
+Banco:
+biblioteca_arcana
+
+Tabela:
+livros
+
+Campos:
+- id SERIAL PRIMARY KEY
+- titulo VARCHAR(100) NOT NULL
+- autor VARCHAR(100)
+- categoria VARCHAR(50)
+- preco NUMERIC(10, 2)
+- quantidade INTEGER
+- descricao TEXT
+
+Funcoes obrigatorias:
+1. criarCliente()
+2. listarLivros()
+3. cadastrarLivro()
+4. buscarLivroPorTitulo()
+5. atualizarQuantidade()
+6. removerLivro()
+7. menu()
+
+Menu obrigatorio:
+1 - Listar livros
+2 - Cadastrar livro
+3 - Buscar livro por titulo
+4 - Atualizar quantidade
+5 - Remover livro
+0 - Sair
+
+Pontuacao para se avaliar:
+- Banco e tabela corretos: 15 pontos
+- Conexao Node com PostgreSQL: 15 pontos
+- Listagem funcionando: 15 pontos
+- Cadastro funcionando: 15 pontos
+- Busca funcionando: 10 pontos
+- Update funcionando: 10 pontos
+- Delete funcionando: 10 pontos
+- Menu funcionando: 10 pontos
+
+Meta:
+80 pontos ou mais = pronto para o simulado.
+60 a 79 pontos = revisar CRUD.
+Menos de 60 = refazer exercicio 04.
+
+Regra:
+Nao copie a Loja do Alquimista. Use so a memoria e o padrao.

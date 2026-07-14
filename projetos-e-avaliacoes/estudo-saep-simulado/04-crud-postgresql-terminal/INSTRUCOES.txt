@@ -1,0 +1,59 @@
+EXERCICIO 04 - CRUD COM NODE + POSTGRESQL
+
+Tempo alvo: 2 a 3 horas.
+
+Este e o exercicio mais importante.
+Ele imita a metodologia da Loja do Alquimista.
+
+Tema:
+Mercado do Bairro.
+
+Voce vai criar um sistema no terminal com banco PostgreSQL.
+
+Banco:
+mercado_saep
+
+Tabela:
+produtos
+
+Campos:
+- id SERIAL PRIMARY KEY
+- nome VARCHAR(100) NOT NULL
+- categoria VARCHAR(50)
+- preco NUMERIC(10, 2)
+- estoque INTEGER
+- descricao TEXT
+
+Funcoes obrigatorias:
+1. criarCliente()
+2. listarProdutos()
+3. cadastrarProduto()
+4. buscarProdutoPorNome()
+5. atualizarEstoque()
+6. removerProduto()
+7. menu()
+
+Regras do professor que voce deve repetir:
+- Cada funcao cria seu proprio client.
+- Toda funcao com banco usa try/catch/finally.
+- O finally sempre fecha a conexao com client.end().
+- Query com dados do usuario usa $1, $2, $3.
+- Nao concatenar valor digitado dentro da query.
+
+Menu:
+1 - Listar produtos
+2 - Cadastrar produto
+3 - Buscar produto por nome
+4 - Atualizar estoque
+5 - Remover produto
+0 - Sair
+
+Checkpoint minimo:
+O sistema precisa conseguir cadastrar, listar, atualizar e remover pelo terminal.
+
+Checkpoint forte:
+Depois de terminar, recrie o mesmo sistema com outro tema sem olhar:
+- farmacia
+- biblioteca
+- inventario de RPG
+- oficina mecanica

@@ -1,0 +1,42 @@
+EXERCICIO 02 - MODULOS NODE
+
+Tempo alvo: 40 a 60 minutos.
+
+Voce vai refatorar a ideia do exercicio 01 separando responsabilidades.
+
+Tema:
+Calculadora de loja.
+
+Arquivos:
+- app.js
+- operacoes.js
+- validacoes.js
+
+Requisitos:
+1. operacoes.js deve exportar:
+   - calcularTotal(preco, quantidade)
+   - aplicarDesconto(total, percentual)
+   - calcularTroco(valorPago, total)
+
+2. validacoes.js deve exportar:
+   - numeroPositivo(valor)
+   - textoObrigatorio(texto)
+
+3. app.js deve:
+   - pedir nome do produto
+   - pedir preco
+   - pedir quantidade
+   - pedir desconto
+   - pedir valor pago
+   - mostrar total, total com desconto e troco
+
+Regras:
+- Produto vazio nao passa.
+- Preco e quantidade precisam ser positivos.
+- Se o valor pago for menor que o total, avisar falta dinheiro.
+
+Checkpoint:
+Voce terminou quando app.js usa require() para importar funcoes de outros arquivos.
+
+Treino extra:
+Adicione uma funcao calcularImposto(total, percentual) em operacoes.js.
