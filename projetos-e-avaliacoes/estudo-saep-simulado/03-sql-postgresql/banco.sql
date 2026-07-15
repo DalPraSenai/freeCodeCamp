@@ -11,14 +11,34 @@ CREATE TABLE livros (
     quantidade INTEGER
 );
 
--- TODO: inserir 5 livros usando INSERT INTO
+INSERT INTO livros (titulo, autor, categoria, preco, quantidade)
+VALUES('Iracema', 'Jose de Alencar', 'Romance', 40, 3);
 
--- TODO: listar todos os livros
+INSERT INTO livros (titulo, autor, categoria, preco, quantidade)
+VALUES('Triste Fim de Policarpo Quaresma', 'Lima Barreto', 'Romance', 67, 2);
 
--- TODO: buscar livros por categoria
+INSERT INTO livros (titulo, autor, categoria, preco, quantidade)
+VALUES('Vidas Secas', 'Graciliano Ramos', 'Romance', 20, 8);
 
--- TODO: atualizar a quantidade de um livro pelo id
+INSERT INTO livros (titulo, autor, categoria, preco, quantidade)
+VALUES('Os Sertões', 'Euclides da Cunha', 'Romance', 50, 4);
 
--- TODO: remover um livro pelo id
+INSERT INTO livros (titulo, autor, categoria, preco, quantidade)
+VALUES('Memórias Póstumas de Brás Cubas', 'Machado de Assis', 'Crime Real', 26, 4);
 
--- TODO: fazer SELECT final para conferir
+SELECT *
+FROM livros;
+
+
+SELECT *
+FROM livros
+WHERE categoria = 'Romance';
+
+UPDATE livros
+SET quantidade = 10
+WHERE id = 1;
+
+DELETE FROM livros
+WHERE id = 5;
+
+SELECT * FROM livros;
