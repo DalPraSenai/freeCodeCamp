@@ -3,20 +3,43 @@ const prompt = require('prompt-sync')();
 const itens = [];
 
 function adicionarItem(nome, tipo, quantidade) {
-    // TODO: validar nome
-    // TODO: validar quantidade
-    // TODO: criar objeto { nome, tipo, quantidade }
-    // TODO: adicionar no array itens
+   
+    if( nome.trim() === ''){
+        console.log("Erro: Nome vazio"); return;}
+    if(quantidade <= 0){console.log("Erro: quantidade nao pode ser menor que 0");return;}
+    
+    const itemObjeto = {
+        nome,
+        quantidade,
+        tipo
+    };
+    itens.push(itemObjeto);
 }
 
 function listarItens() {
-    // TODO: se o array estiver vazio, avisar
-    // TODO: mostrar todos os itens no terminal
+    if(itens.length === 0){
+        console.log("Erro: Array vazio");
+        return;
+    }
+    else{
+        for(let i = 0; i != itens.length; i++){
+            console.log(`Item ${i}\n
+                Nome: ${itens[i].nome}\n
+                Tipo: ${itens[i].tipo}\n
+                Quantidade: ${itens[i].quantidade}`);
+        };
+    }
 }
 
 function buscarItemPorNome(nome) {
-    // TODO: procurar item pelo nome
-    // TODO: mostrar o item encontrado ou avisar que nao existe
+    const itemEncontrado = itens.find(item => item.nome === true);
+    if(itemEncontrado == true){console.log(`Item encontrado! ${
+        console.log(`Item:
+                Nome: ${itens.nome}\n
+                Tipo: ${itens.tipo}\n
+                Quantidade: ${itens.quantidade}`);}`);
+    }
+    else{console.log(`Seu item não foi encontrado... item: ${itens}`);}
 }
 
 function removerItem(nome) {
