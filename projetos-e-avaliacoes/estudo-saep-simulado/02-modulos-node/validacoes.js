@@ -1,9 +1,11 @@
 function numeroPositivo(valor) {
-    // TODO: retornar true se for numero maior que zero
+    if(valor > 0){return true;}
+    else{return false;};
 }
 
 function textoObrigatorio(texto) {
-    // TODO: retornar true se o texto nao estiver vazio
+    if(texto != ''){return true;}
+    else{return false;};
 }
 
 module.exports = {
