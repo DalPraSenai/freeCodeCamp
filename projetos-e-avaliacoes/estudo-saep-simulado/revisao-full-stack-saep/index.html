@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisao SAEP - Full Stack</title>
+    <style>
+        :root {
+            --bg: #f6f7f9;
+            --panel: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --line: #dbe3ee;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --good: #15803d;
+            --warn: #b45309;
+            --danger: #b91c1c;
+            --code-bg: #111827;
+            --code-text: #e5e7eb;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        header {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 28px 18px;
+        }
+
+        .wrap {
+            width: min(1120px, calc(100% - 28px));
+            margin: 0 auto;
+        }
+
+        .topline {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: 0;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: #cbd5e1;
+            max-width: 760px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 999px;
+            color: #dbeafe;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(246, 247, 249, 0.94);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .toolbar-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        input[type="search"] {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            color: var(--text);
+            background: #ffffff;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        .link-button {
+            border: 1px solid var(--line);
+            background: #ffffff;
+            color: var(--text);
+            border-radius: 8px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.92rem;
+        }
+
+        button:hover,
+        .link-button:hover {
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        main {
+            padding: 22px 0 42px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        nav {
+            position: sticky;
+            top: 76px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        nav strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.94rem;
+        }
+
+        nav a:hover {
+            background: #eff6ff;
+            color: var(--primary-dark);
+        }
+
+        section {
+            margin-bottom: 18px;
+        }
+
+        .summary-panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px;
+        }
+
+        .summary-panel h2,
+        details h2 {
+            margin: 0 0 10px;
+            font-size: 1.35rem;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 5px 10px;
+            background: #eff6ff;
+            color: #1e40af;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        details {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 16px 18px;
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: var(--text);
+            list-style-position: inside;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--line);
+            background: #f8fafc;
+        }
+
+        .content {
+            padding: 16px 18px 18px;
+        }
+
+        h3 {
+            margin: 18px 0 8px;
+            font-size: 1.05rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 22px;
+            margin-top: 8px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        .note {
+            border-left: 4px solid var(--primary);
+            background: #eff6ff;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .warning {
+            border-left-color: var(--warn);
+            background: #fff7ed;
+        }
+
+        .danger {
+            border-left-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background: #eef2f7;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        pre {
+            margin: 12px 0;
+            padding: 14px;
+            overflow-x: auto;
+            border-radius: 8px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.92rem;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        mark {
+            background: #fef08a;
+            color: inherit;
+            padding: 0 2px;
+        }
+
+        footer {
+            padding: 22px 0 38px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 860px) {
+            .toolbar-inner,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                position: static;
+                box-shadow: none;
+            }
+
+            .actions {
+                width: 100%;
+            }
+
+            button,
+            .link-button {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <div class="topline">
+                <div>
+                    <h1>Revisao SAEP - Desenvolvimento de Sistemas</h1>
+                    <p class="subtitle">Consulta rapida: C, C#, POO, Git, modelagem, testes, banco de dados e desenvolvimento web full stack.</p>
+                </div>
+                <span class="badge">Simulado: quinta-feira</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="wrap toolbar-inner">
+            <input id="search" type="search" placeholder="Pesquisar: C#, classe, teste, Git, SQL, Express, CRUD...">
+            <div class="actions">
+                <button type="button" id="openAll">Abrir tudo</button>
+                <button type="button" id="closeAll">Fechar tudo</button>
+                <a class="link-button" href="https://kiwi-pan-569.notion.site/Desenvolvimento-WEB-Front-Back-262f5d9cb5aa80c2835dd8a4abeb9c2d" target="_blank" rel="noreferrer">Notion professor</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="wrap">
+        <div class="grid">
+            <nav aria-label="Navegacao da revisao">
+                <strong>Mapa rapido</strong>
+                <a href="#prioridade">Prioridade para amanha</a>
+                <a href="#dia-da-prova">Como usar consulta na prova</a>
+                <a href="#front-end">Front-end</a>
+                <a href="#javascript">JavaScript</a>
+                <a href="#node">Node e NPM</a>
+                <a href="#postgres">PostgreSQL</a>
+                <a href="#crud">CRUD no terminal</a>
+                <a href="#http-express">HTTP e Express</a>
+                <a href="#logica-c">Logica e C</a>
+                <a href="#csharp">C# e POO</a>
+                <a href="#git">Git</a>
+                <a href="#modelagem">Modelagem</a>
+                <a href="#testes">Testes</a>
+                <a href="#banco-geral">Banco de dados</a>
+                <a href="#erros">Erros comuns</a>
+                <a href="#roteiro">Roteiro de implementacao</a>
+            </nav>
+
+            <div>
+                <section id="prioridade" class="summary-panel searchable">
+                    <h2>O que mais deve cair</h2>
+                    <p>Se o simulado seguir a aula da Loja do Alquimista, o nucleo e <strong>Node.js no terminal conversando com PostgreSQL</strong>. O professor organizou a aula em banco, conexao, try/catch/finally, SELECT, INSERT, UPDATE, DELETE e menu completo.</p>
+                    <div class="pill-row">
+                        <span class="pill">PostgreSQL</span>
+                        <span class="pill">pg</span>
+                        <span class="pill">prompt-sync</span>
+                        <span class="pill">CRUD</span>
+                        <span class="pill">menu terminal</span>
+                        <span class="pill">try/catch/finally</span>
+                    </div>
+                </section>
+
+                <details id="dia-da-prova" class="searchable" open>
+                    <summary>Como usar consulta amanha sem perder tempo</summary>
+                    <div class="content">
+                        <p>Como o professor liberou pesquisa, codigo antigo e materiais, a estrategia nao e decorar tudo. A estrategia e saber <strong>onde procurar</strong> e <strong>qual padrao copiar com entendimento</strong>.</p>
+                        <ol>
+                            <li>Leia o enunciado e marque os substantivos: produto, livro, tarefa, aluno, item.</li>
+                            <li>Transforme esses substantivos em tabela e colunas.</li>
+                            <li>Monte primeiro o <code>banco.sql</code>.</li>
+                            <li>Teste o SQL no pgAdmin antes de ir para o Node.</li>
+                            <li>No Node, copie o padrao mental: criar cliente, conectar, executar query, tratar erro, fechar conexao.</li>
+                            <li>Faca uma funcao por vez. Nao comece pelo menu.</li>
+                            <li>So monte o menu quando as funcoes principais existirem.</li>
+                        </ol>
+                        <div class="note warning">
+                            Nao use IA durante a prova. Use esta pagina, seus codigos antigos, o Notion do professor, documentacao e pesquisa comum.
+                        </div>
+                    </div>
+                </details>
+
+                <details id="front-end" class="searchable">
+                    <summary>Front-end: HTML, CSS, Bootstrap e DOM</summary>
+                    <div class="content">
+                        <h3>HTML</h3>
+                        <ul>
+                            <li>HTML define estrutura: titulos, paragrafos, listas, links, imagens, formularios e tabelas.</li>
+                            <li>Use tags semanticas quando fizer sentido: <code>header</code>, <code>main</code>, <code>section</code>, <code>footer</code>.</li>
+                            <li>Formulario normalmente usa <code>input</code>, <code>label</code>, <code>button</code> e atributos como <code>type</code>, <code>name</code>, <code>id</code>.</li>
+                        </ul>
+
+                        <h3>CSS</h3>
+                        <ul>
+                            <li>CSS controla aparencia: cores, espacamento, bordas, fontes e layout.</li>
+                            <li>Seletores importantes: tag, classe <code>.classe</code>, id <code>#id</code>.</li>
+                            <li>Layout mais comum: <code>display: flex</code>, <code>display: grid</code>, <code>gap</code>, <code>padding</code>, <code>margin</code>.</li>
+                            <li>Responsividade: use <code>@media</code>, porcentagem, <code>max-width</code> e layouts que quebram em telas menores.</li>
+                        </ul>
+
+                        <h3>Bootstrap</h3>
+                        <ul>
+                            <li>Bootstrap acelera layout com classes prontas.</li>
+                            <li>Classes comuns: <code>container</code>, <code>row</code>, <code>col</code>, <code>btn</code>, <code>card</code>, <code>navbar</code>.</li>
+                            <li>Se cair Bootstrap, geralmente o foco e montar pagina responsiva sem escrever tanto CSS manual.</li>
+                        </ul>
+
+                        <h3>DOM</h3>
+                        <ul>
+                            <li>DOM e o HTML visto pelo JavaScript como objetos manipulaveis.</li>
+                            <li>Buscas comuns: <code>document.querySelector()</code>, <code>document.getElementById()</code>.</li>
+                            <li>Eventos comuns: <code>click</code>, <code>submit</code>, <code>input</code>.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details id="javascript" class="searchable">
+                    <summary>JavaScript essencial para o simulado</summary>
+                    <div class="content">
+                        <h3>Variaveis</h3>
+                        <ul>
+                            <li><code>const</code>: use quando o valor nao sera reatribuido.</li>
+                            <li><code>let</code>: use quando o valor muda, como opcao de menu.</li>
+                            <li>Evite criar variaveis sem valor usando <code>const nome;</code>. Isso da erro.</li>
+                        </ul>
+
+                        <h3>Arrays e objetos</h3>
+                        <p>Array guarda lista. Objeto guarda um item com propriedades.</p>
+                        <pre><code>const itens = [];
+
+const item = {
+    nome: 'Pocao',
+    tipo: 'Cura',
+    quantidade: 3
+};
+
+itens.push(item);</code></pre>
+
+                        <h3>Funcoes</h3>
+                        <p>Funcoes deixam o programa separado por responsabilidades.</p>
+                        <pre><code>function calcularTotal(preco, quantidade) {
+    return preco * quantidade;
+}</code></pre>
+
+                        <h3>Menu no terminal</h3>
+                        <ul>
+                            <li>Use <code>prompt-sync</code> para receber dados.</li>
+                            <li>Use <code>while</code> para repetir ate a opcao ser <code>0</code>.</li>
+                            <li>Use <code>if/else</code> ou <code>switch</code> para chamar cada funcao.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details id="node" class="searchable">
+                    <summary>Node.js, modulos e NPM</summary>
+                    <div class="content">
+                        <h3>Node.js</h3>
+                        <p>Node permite rodar JavaScript fora do navegador. No simulado, isso aparece principalmente como programa de terminal ou servidor.</p>
+
+                        <h3>NPM</h3>
+                        <ul>
+                            <li><code>npm init -y</code>: cria <code>package.json</code>.</li>
+                            <li><code>npm install pacote</code>: instala dependencia.</li>
+                            <li><code>npm start</code>: roda o script configurado em <code>package.json</code>.</li>
+                        </ul>
+
+                        <h3>CommonJS</h3>
+                        <p>Nos seus exercicios, o padrao mais usado e <code>require</code> e <code>module.exports</code>.</p>
+                        <pre><code>const prompt = require('prompt-sync')();
+const operacoes = require('./operacoes');</code></pre>
+
+                        <pre><code>function somar(a, b) {
+    return a + b;
+}
+
+module.exports = { somar };</code></pre>
+
+                        <h3>Quando separar em modulos</h3>
+                        <ul>
+                            <li>Funcoes matematicas: <code>operacoes.js</code>.</li>
+                            <li>Validacoes: <code>validacoes.js</code>.</li>
+                            <li>Programa principal e menu: <code>app.js</code>.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details id="postgres" class="searchable" open>
+                    <summary>PostgreSQL: SQL que precisa estar na mao</summary>
+                    <div class="content">
+                        <h3>Fluxo do banco</h3>
+                        <ol>
+                            <li>Criar banco com <code>CREATE DATABASE</code>.</li>
+                            <li>Conectar no banco pelo pgAdmin.</li>
+                            <li>Criar tabela com <code>CREATE TABLE</code>.</li>
+                            <li>Inserir dados iniciais com <code>INSERT INTO</code>.</li>
+                            <li>Testar com <code>SELECT * FROM tabela;</code>.</li>
+                        </ol>
+
+                        <h3>Modelo base de tabela</h3>
+                        <pre><code>CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(50),
+    preco NUMERIC(10, 2),
+    estoque INTEGER,
+    descricao TEXT
+);</code></pre>
+
+                        <h3>Comandos basicos</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Operacao</th>
+                                    <th>SQL</th>
+                                    <th>Para que serve</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Criar</td>
+                                    <td><code>INSERT INTO</code></td>
+                                    <td>Adicionar novo registro.</td>
+                                </tr>
+                                <tr>
+                                    <td>Ler</td>
+                                    <td><code>SELECT</code></td>
+                                    <td>Buscar dados.</td>
+                                </tr>
+                                <tr>
+                                    <td>Atualizar</td>
+                                    <td><code>UPDATE ... SET ... WHERE</code></td>
+                                    <td>Alterar dados existentes.</td>
+                                </tr>
+                                <tr>
+                                    <td>Remover</td>
+                                    <td><code>DELETE FROM ... WHERE</code></td>
+                                    <td>Apagar registro.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="note danger">
+                            Nunca faca <code>UPDATE</code> ou <code>DELETE</code> sem <code>WHERE</code>, a menos que voce queira alterar ou apagar tudo.
+                        </div>
+                    </div>
+                </details>
+
+                <details id="crud" class="searchable" open>
+                    <summary>Node + PostgreSQL: padrao da Loja do Alquimista</summary>
+                    <div class="content">
+                        <h3>Pacotes principais</h3>
+                        <pre><code>npm init -y
+npm install pg prompt-sync</code></pre>
+
+                        <h3>Conexao</h3>
+                        <p>A configuracao do Node usa as mesmas informacoes do pgAdmin: host, porta, usuario, senha e banco.</p>
+                        <pre><code>const { Client } = require('pg');
+
+function criarCliente() {
+    return new Client({
+        host: 'localhost',
+        port: 5432,
+        user: 'postgres',
+        password: 'sua_senha',
+        database: 'nome_do_banco'
+    });
+}</code></pre>
+
+                        <h3>Padrao de toda funcao com banco</h3>
+                        <pre><code>async function minhaFuncao() {
+    const client = criarCliente();
+
+    try {
+        await client.connect();
+        // client.query(...)
+    } catch (erro) {
+        console.log('Erro:', erro.message);
+    } finally {
+        await client.end();
+    }
+}</code></pre>
+
+                        <h3>Por que usar $1, $2, $3?</h3>
+                        <p>Porque valores digitados pelo usuario devem entrar como dados, nao como texto colado dentro do SQL. Isso evita erro e reduz risco de SQL injection.</p>
+                        <pre><code>await client.query(
+    'SELECT * FROM produtos WHERE nome ILIKE $1',
+    [`%${nome}%`]
+);</code></pre>
+
+                        <h3>CRUD que voce precisa reconhecer</h3>
+                        <ul>
+                            <li><strong>Listar:</strong> <code>SELECT * FROM tabela ORDER BY nome</code>.</li>
+                            <li><strong>Cadastrar:</strong> <code>INSERT INTO tabela (...) VALUES (...) RETURNING *</code>.</li>
+                            <li><strong>Atualizar:</strong> <code>UPDATE tabela SET campo = $1 WHERE id = $2 RETURNING *</code>.</li>
+                            <li><strong>Remover:</strong> buscar antes, confirmar, depois <code>DELETE FROM tabela WHERE id = $1</code>.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details id="http-express" class="searchable">
+                    <summary>Servidores HTTP, Express e Full Stack</summary>
+                    <div class="content">
+                        <h3>HTTP puro no Node</h3>
+                        <p>O modulo nativo <code>http</code> cria servidor sem instalar nada. Ele trabalha com requisicao e resposta.</p>
+                        <ul>
+                            <li><code>req</code>: pedido que chegou.</li>
+                            <li><code>res</code>: resposta que sera enviada.</li>
+                            <li><code>listen(3000)</code>: deixa o servidor ouvindo em uma porta.</li>
+                        </ul>
+
+                        <h3>Express</h3>
+                        <p>Express organiza servidores e APIs. Ele evita muitos <code>if</code> de rota e facilita trabalhar com caminhos, metodos HTTP e JSON.</p>
+                        <pre><code>const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Pagina inicial');
+});
+
+app.listen(3000);</code></pre>
+
+                        <h3>Full Stack</h3>
+                        <p>Full stack e quando front-end e back-end se comunicam. O fluxo basico e:</p>
+                        <ol>
+                            <li>Usuario preenche formulario no HTML.</li>
+                            <li>JavaScript envia dados para uma rota do back-end.</li>
+                            <li>Back-end valida e salva no banco.</li>
+                            <li>Banco responde.</li>
+                            <li>Back-end devolve resposta para o front-end.</li>
+                        </ol>
+                    </div>
+                </details>
+
+                <details id="logica-c" class="searchable" open>
+                    <summary>Logica de programacao e linguagem C</summary>
+                    <div class="content">
+                        <p>A logica e a mesma que voce ja usa em JavaScript: receber dados, decidir, repetir e organizar em funcoes. Em C, muda principalmente a sintaxe e o controle dos tipos.</p>
+
+                        <h3>Ordem de estudo do professor</h3>
+                        <ol>
+                            <li>Algoritmos, pseudocodigo, fluxogramas e teste de mesa.</li>
+                            <li>Variaveis e tipos: <code>int</code>, <code>float</code>, <code>double</code> e <code>char</code>.</li>
+                            <li>Condicionais: <code>if</code>, <code>else</code> e <code>switch</code>.</li>
+                            <li>Repeticao: <code>while</code>, <code>do while</code> e <code>for</code>.</li>
+                            <li>Funcoes, vetores, strings, matrizes e <code>struct</code>.</li>
+                            <li>Ponteiros e alocacao dinamica aparecem depois.</li>
+                        </ol>
+
+                        <h3>Esqueleto minimo em C</h3>
+                        <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade;
+    printf("Digite a idade: ");
+    scanf("%d", &amp;idade);
+
+    if (idade &gt;= 18) {
+        printf("Maior de idade\n");
+    }
+
+    return 0;
+}</code></pre>
+                        <div class="note warning"><code>printf</code> mostra dados; <code>scanf</code> recebe dados. O <code>&amp;</code> passa o endereco da variavel para o <code>scanf</code>.</div>
+                    </div>
+                </details>
+
+                <details id="csharp" class="searchable" open>
+                    <summary>C# do zero e Programacao Orientada a Objetos</summary>
+                    <div class="content">
+                        <p>C# e diferente de C. Ele roda sobre a plataforma .NET e foi a linguagem escolhida pelo professor para estudar POO. Para a revisao imediata, concentre-se nos capitulos 0 a 4 e em tratamento de erros.</p>
+
+                        <h3>Sintaxe basica</h3>
+                        <pre><code>Console.Write("Nome: ");
+string nome = Console.ReadLine();
+
+Console.Write("Idade: ");
+int idade = int.Parse(Console.ReadLine());
+
+if (idade &gt;= 18) {
+    Console.WriteLine($"{nome} e maior de idade");
+}</code></pre>
+                        <ul>
+                            <li><code>Console.WriteLine()</code>: mostra e pula linha.</li>
+                            <li><code>Console.ReadLine()</code>: recebe texto.</li>
+                            <li><code>int.Parse()</code>: converte texto para inteiro.</li>
+                            <li><code>$"...{variavel}..."</code>: interpolacao de texto.</li>
+                        </ul>
+
+                        <h3>Classe, objeto, propriedade e metodo</h3>
+                        <pre><code>class Produto
+{
+    public string Nome { get; set; }
+    public decimal Preco { get; set; }
+
+    public Produto(string nome, decimal preco)
+    {
+        Nome = nome;
+        Preco = preco;
+    }
+
+    public void Exibir()
+    {
+        Console.WriteLine($"{Nome}: R$ {Preco}");
+    }
+}
+
+Produto pocao = new Produto("Pocao", 15.50m);
+pocao.Exibir();</code></pre>
+                        <ul>
+                            <li><strong>Classe:</strong> molde que define dados e comportamentos.</li>
+                            <li><strong>Objeto:</strong> instancia criada com <code>new</code>.</li>
+                            <li><strong>Construtor:</strong> prepara o objeto ao ser criado; tem o mesmo nome da classe.</li>
+                            <li><strong>Propriedade:</strong> dado controlado por <code>get</code> e <code>set</code>.</li>
+                            <li><strong>Metodo:</strong> acao que o objeto sabe executar.</li>
+                        </ul>
+
+                        <h3>Quatro pilares da POO</h3>
+                        <table>
+                            <thead><tr><th>Pilar</th><th>Ideia</th><th>Pista em C#</th></tr></thead>
+                            <tbody>
+                                <tr><td>Abstracao</td><td>Representar somente o que importa.</td><td>Classes, classes abstratas e interfaces.</td></tr>
+                                <tr><td>Encapsulamento</td><td>Proteger e controlar o estado.</td><td><code>private</code>, <code>public</code>, propriedades.</td></tr>
+                                <tr><td>Heranca</td><td>Uma classe reaproveita outra.</td><td><code>class Guerreiro : Personagem</code>.</td></tr>
+                                <tr><td>Polimorfismo</td><td>Objetos diferentes respondem ao mesmo metodo.</td><td><code>virtual</code>, <code>override</code>, interfaces.</td></tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Tratamento de erros</h3>
+                        <pre><code>try {
+    int numero = int.Parse(Console.ReadLine());
+} catch (FormatException) {
+    Console.WriteLine("Digite um numero valido.");
+}</code></pre>
+                        <div class="note warning">Nao tente decorar LINQ, eventos, async/await e interface grafica hoje se voce ainda nao domina classe, objeto, construtor e propriedade.</div>
+                    </div>
+                </details>
+
+                <details id="git" class="searchable">
+                    <summary>Git e versionamento</summary>
+                    <div class="content">
+                        <p>Git registra versoes locais do projeto; GitHub hospeda repositorios remotos e facilita colaboracao.</p>
+                        <table>
+                            <thead><tr><th>Comando</th><th>Funcao</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>git status</code></td><td>Mostra arquivos alterados e preparados.</td></tr>
+                                <tr><td><code>git add .</code></td><td>Prepara alteracoes para o commit.</td></tr>
+                                <tr><td><code>git commit -m "mensagem"</code></td><td>Salva uma versao local.</td></tr>
+                                <tr><td><code>git pull</code></td><td>Busca e integra mudancas do remoto.</td></tr>
+                                <tr><td><code>git push</code></td><td>Envia commits locais ao remoto.</td></tr>
+                                <tr><td><code>git log --oneline</code></td><td>Mostra o historico resumido.</td></tr>
+                                <tr><td><code>git branch</code></td><td>Lista ou cria ramificacoes.</td></tr>
+                                <tr><td><code>git switch nome</code></td><td>Troca de branch.</td></tr>
+                            </tbody>
+                        </table>
+                        <p>Fluxo mental: <code>working directory -&gt; add -&gt; staging area -&gt; commit -&gt; repositorio local -&gt; push -&gt; remoto</code>.</p>
+                    </div>
+                </details>
+
+                <details id="modelagem" class="searchable">
+                    <summary>Modelagem de sistemas e UML</summary>
+                    <div class="content">
+                        <p>Modelar e criar uma representacao simplificada antes ou junto da implementacao. Serve para visualizar, comunicar, analisar e documentar o sistema.</p>
+                        <ul>
+                            <li><strong>Requisito funcional:</strong> o que o sistema deve fazer, como cadastrar produto.</li>
+                            <li><strong>Requisito nao funcional:</strong> qualidade ou restricao, como seguranca e tempo de resposta.</li>
+                            <li><strong>Caso de uso:</strong> interacao entre ator e sistema para atingir um objetivo.</li>
+                            <li><strong>Diagrama de classes:</strong> classes, atributos, metodos e relacionamentos.</li>
+                            <li><strong>Diagrama de atividades:</strong> fluxo de decisoes e tarefas.</li>
+                            <li><strong>Diagrama de sequencia:</strong> mensagens trocadas ao longo do tempo.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details id="testes" class="searchable">
+                    <summary>Testes de sistemas</summary>
+                    <div class="content">
+                        <p>Teste busca revelar defeitos e verificar se o software atende ao esperado. Qualidade e responsabilidade do processo inteiro, nao apenas de quem testa.</p>
+                        <ul>
+                            <li><strong>Caso de teste:</strong> pre-condicao, dados de entrada, passos e resultado esperado.</li>
+                            <li><strong>Teste unitario:</strong> verifica uma pequena unidade isolada.</li>
+                            <li><strong>Teste de integracao:</strong> verifica componentes trabalhando juntos, como API e banco.</li>
+                            <li><strong>Teste de sistema:</strong> avalia o sistema completo.</li>
+                            <li><strong>Teste de aceitacao:</strong> confirma se atende a necessidade do usuario/cliente.</li>
+                            <li><strong>Caixa-preta:</strong> testa entradas e saidas sem depender do codigo interno.</li>
+                            <li><strong>Caixa-branca:</strong> considera caminhos e estrutura interna do codigo.</li>
+                            <li><strong>Regressao:</strong> verifica se uma mudanca quebrou algo que funcionava.</li>
+                        </ul>
+                        <div class="note"><strong>Exemplo:</strong> quantidade valida entre 1 e 100. Teste 1, 100, 0, 101 e um texto. Isso exercita valores validos, limites e entradas invalidas.</div>
+                    </div>
+                </details>
+
+                <details id="banco-geral" class="searchable">
+                    <summary>Banco de dados: modelagem, SQL e normalizacao</summary>
+                    <div class="content">
+                        <ul>
+                            <li><strong>Modelo conceitual:</strong> entidades e relacionamentos, sem pensar no SGBD.</li>
+                            <li><strong>Modelo logico:</strong> tabelas, atributos, chaves e relacionamentos.</li>
+                            <li><strong>Modelo fisico:</strong> SQL implementado no PostgreSQL ou outro SGBD.</li>
+                            <li><strong>Chave primaria:</strong> identifica cada registro de forma unica.</li>
+                            <li><strong>Chave estrangeira:</strong> liga uma tabela a outra.</li>
+                            <li><strong>Normalizacao:</strong> reduz repeticao e inconsistencias.</li>
+                        </ul>
+                        <table>
+                            <thead><tr><th>Grupo</th><th>Comandos comuns</th><th>Uso</th></tr></thead>
+                            <tbody>
+                                <tr><td>DDL</td><td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code></td><td>Define estruturas.</td></tr>
+                                <tr><td>DML</td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td><td>Manipula registros.</td></tr>
+                                <tr><td>DQL</td><td><code>SELECT</code></td><td>Consulta dados.</td></tr>
+                                <tr><td>DCL</td><td><code>GRANT</code>, <code>REVOKE</code></td><td>Controla permissoes.</td></tr>
+                            </tbody>
+                        </table>
+                        <p>Para combinar tabelas, revise <code>INNER JOIN</code>, <code>LEFT JOIN</code>, a condicao <code>ON</code> e a relacao entre chave primaria e estrangeira.</p>
+                    </div>
+                </details>
+
+                <details id="erros" class="searchable" open>
+                    <summary>Erros comuns e como diagnosticar rapido</summary>
+                    <div class="content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Erro</th>
+                                    <th>Causa provavel</th>
+                                    <th>O que conferir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Senha invalida</td>
+                                    <td>Senha do PostgreSQL diferente no codigo.</td>
+                                    <td><code>password</code> em <code>criarCliente()</code>.</td>
+                                </tr>
+                                <tr>
+                                    <td>Banco nao existe</td>
+                                    <td>Nome do banco errado ou nao criado.</td>
+                                    <td><code>database</code> e pgAdmin.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tabela nao existe</td>
+                                    <td>Voce criou banco, mas nao executou <code>CREATE TABLE</code> nele.</td>
+                                    <td>Se esta conectado no banco certo.</td>
+                                </tr>
+                                <tr>
+                                    <td>Programa trava no menu</td>
+                                    <td>Faltou <code>await</code> em funcao async ou loop mal controlado.</td>
+                                    <td>Chamadas como <code>await listarItens()</code>.</td>
+                                </tr>
+                                <tr>
+                                    <td>Erro de sintaxe</td>
+                                    <td>Chave, parenteses, crase ou virgula faltando.</td>
+                                    <td>Use <code>node --check app.js</code>.</td>
+                                </tr>
+                                <tr>
+                                    <td>UPDATE nao altera nada</td>
+                                    <td>ID nao existe ou parametros invertidos.</td>
+                                    <td><code>WHERE id = $2</code> e array de valores.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+
+                <details id="roteiro" class="searchable" open>
+                    <summary>Roteiro para montar qualquer sistema do simulado</summary>
+                    <div class="content">
+                        <h3>Passo a passo recomendado</h3>
+                        <ol>
+                            <li>Defina o tema: loja, biblioteca, tarefas, mercado, farmacia.</li>
+                            <li>Defina a tabela principal e colunas.</li>
+                            <li>Crie <code>banco.sql</code> e teste no pgAdmin.</li>
+                            <li>Crie projeto Node com <code>npm init -y</code>.</li>
+                            <li>Instale <code>pg</code> e <code>prompt-sync</code>.</li>
+                            <li>Crie <code>criarCliente()</code>.</li>
+                            <li>Implemente <code>listar</code> e teste.</li>
+                            <li>Implemente <code>cadastrar</code> e teste.</li>
+                            <li>Implemente <code>atualizar</code> e teste.</li>
+                            <li>Implemente <code>remover</code> e teste.</li>
+                            <li>Monte o menu por ultimo.</li>
+                        </ol>
+
+                        <h3>Checklist final antes de entregar</h3>
+                        <ul>
+                            <li>O sistema roda com <code>node app.js</code> ou <code>npm start</code>.</li>
+                            <li>Conexao fecha no <code>finally</code>.</li>
+                            <li>Valores digitados usam parametros <code>$1</code>, <code>$2</code>.</li>
+                            <li>Menu tem opcao de sair.</li>
+                            <li>Mensagens de erro sao claras.</li>
+                            <li>Voce testou cadastrar, listar, atualizar e remover.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <section class="summary-panel searchable">
+                    <h2>Fontes usadas</h2>
+                    <p>Baseado no material publico do professor: Desenvolvimento Web Front & Back, Node, Loja do Alquimista, Logica em C, POO com C#, Git, Banco de Dados, Modelagem de Sistemas e Testes de Sistemas.</p>
+                    <p><a href="https://kiwi-pan-569.notion.site/Desenvolvimento-WEB-Front-Back-262f5d9cb5aa80c2835dd8a4abeb9c2d" target="_blank" rel="noreferrer">Web Full Stack</a> | <a href="https://kiwi-pan-569.notion.site/L-gica-de-Programa-o-C-141f5d9cb5aa80859dd9e307ef430c9f" target="_blank" rel="noreferrer">Logica e C</a> | <a href="https://kiwi-pan-569.notion.site/POO-Programa-o-Orientada-a-Objetos-C-24df5d9cb5aa80d29d0ae8bde53cf4e0" target="_blank" rel="noreferrer">POO com C#</a> | <a href="https://kiwi-pan-569.notion.site/GIT-Versionamento-205f5d9cb5aa80059098ff47fe162676" target="_blank" rel="noreferrer">Git</a> | <a href="https://kiwi-pan-569.notion.site/Banco-de-Dados-1dff5d9cb5aa80f8afc2fc2663240520" target="_blank" rel="noreferrer">Banco de Dados</a> | <a href="https://kiwi-pan-569.notion.site/Modelagem-de-Sistemas-203f5d9cb5aa803ea3bfe89bf623ebb4" target="_blank" rel="noreferrer">Modelagem</a> | <a href="https://kiwi-pan-569.notion.site/Testes-de-Sistemas-292f5d9cb5aa808d8636fe7a615df361" target="_blank" rel="noreferrer">Testes</a></p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            Pagina local de revisao. Use como consulta, nao como substituto de praticar o CRUD no terminal.
+        </div>
+    </footer>
+
+    <script>
+        const searchInput = document.querySelector('#search');
+        const blocks = Array.from(document.querySelectorAll('.searchable'));
+        const details = Array.from(document.querySelectorAll('details'));
+        const original = new Map();
+
+        blocks.forEach((block) => {
+            original.set(block, block.innerHTML);
+        });
+
+        function normalize(text) {
+            return text
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function escapeRegExp(value) {
+            return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function highlight(block, term) {
+            block.innerHTML = original.get(block);
+            if (!term) return;
+
+            const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+
+            nodes.forEach((node) => {
+                const text = node.nodeValue;
+                const normalizedText = normalize(text);
+                const normalizedTerm = normalize(term);
+                const index = normalizedText.indexOf(normalizedTerm);
+                if (index === -1) return;
+
+                const pattern = new RegExp(escapeRegExp(term), 'ig');
+                const span = document.createElement('span');
+                span.innerHTML = text.replace(pattern, (match) => `<mark>${match}</mark>`);
+                node.parentNode.replaceChild(span, node);
+            });
+        }
+
+        function filter() {
+            const term = searchInput.value.trim();
+            const normalizedTerm = normalize(term);
+
+            blocks.forEach((block) => {
+                block.innerHTML = original.get(block);
+                const matches = !term || normalize(block.textContent).includes(normalizedTerm);
+                block.classList.toggle('hidden', !matches);
+
+                if (matches && term) {
+                    if (block.tagName.toLowerCase() === 'details') block.open = true;
+                    highlight(block, term);
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filter);
+
+        document.querySelector('#openAll').addEventListener('click', () => {
+            details.forEach((item) => item.open = true);
+        });
+
+        document.querySelector('#closeAll').addEventListener('click', () => {
+            details.forEach((item) => item.open = false);
+        });
+    </script>
+</body>
+</html>
