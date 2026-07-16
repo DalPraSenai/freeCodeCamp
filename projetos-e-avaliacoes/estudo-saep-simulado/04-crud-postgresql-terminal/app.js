@@ -76,14 +76,27 @@ async function buscarProdutoPorNome() {
     const client = criarCliente();
 
     try {
-        const itemEncontrado = produtos.find(produtos => produtos.nome === true);
-        if(itemEncontrado == true){console.log(`Item encontrado!`);
-            console.log(`Item:
-                    Nome: ${produtos.nome}\n
-                    Tipo: ${produtos.categoria}\n
-                    Quantidade: ${produtos.quantidade}`);
+        const nome = prompt('Nome do produto para buscar: ');
+        await client.connect();
+
+        const resultado = await client.query(
+            `SELECT * FROM produtos
+             WHERE nome ILIKE $1
+             ORDER BY nome`,
+            [`%${nome}%`]
+        );
+
+        if (resultado.rows.length === 0) {
+            console.log('Nenhum produto encontrado.');
+            return;
         }
-        else{console.log(`Seu item não foi encontrado... item: ${produtos}`);}
+
+        console.log('\n--- PRODUTOS ENCONTRADOS ---');
+        resultado.rows.forEach(produto => {
+            console.log(`[${produto.id}] ${produto.nome}`);
+            console.log(`Categoria: ${produto.categoria} | Preco: R$ ${produto.preco} | Estoque: ${produto.estoque}`);
+            console.log(`Descricao: ${produto.descricao}`);
+        });
     } catch (erro) {
         console.log('Erro ao buscar produto:', erro.message);
     } finally {
@@ -164,6 +177,13 @@ async function removerProduto() {
             console.log('Operação cancelada.');
             return;
         }
+
+        const resultado = await client.query(
+            'DELETE FROM produtos WHERE id = $1 RETURNING nome',
+            [id]
+        );
+
+        console.log(`Produto removido com sucesso: ${resultado.rows[0].nome}`);
 
     } catch (erro) {
         console.log('Erro ao remover produto:', erro.message);
