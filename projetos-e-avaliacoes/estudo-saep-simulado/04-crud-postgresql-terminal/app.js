@@ -6,7 +6,7 @@ function criarCliente() {
         host: 'localhost',
         port: 5432,
         user: 'postgres',
-        password: 'sua_senha',
+        password: 'root',
         database: 'mercado_saep'
     });
 }
@@ -15,9 +15,21 @@ async function listarProdutos() {
     const client = criarCliente();
 
     try {
-        // TODO: conectar
-        // TODO: SELECT * FROM produtos ORDER BY id
-        // TODO: mostrar produtos no terminal
+        await client.connect();
+        const resultado = await client.query(
+            'SELECT * FROM produtos ORDER BY id'
+        );
+        if(resultado.rows.length === 0){
+            console.log("O mercado ta vazio no momento.");
+        }
+        else{
+            resultado.rows.forEach(produtos => {
+                console.log(`[${produtos.id}] ${produtos.nome}`);
+                console.log(`Categoria: ${produtos.categoria} | Preço: R$ ${produtos.preco} | Estoque: ${produtos.estoque}`) ;
+                console.log(`Descrição: ${produtos.descricao}`)  ;
+            });
+        }
+
     } catch (erro) {
         console.log('Erro ao listar produtos:', erro.message);
     } finally {
@@ -29,10 +41,30 @@ async function cadastrarProduto() {
     const client = criarCliente();
 
     try {
-        // TODO: pedir nome, categoria, preco, estoque, descricao
-        // TODO: validar nome e preco
-        // TODO: INSERT INTO produtos (...) VALUES ($1, $2, $3, $4, $5)
-        // TODO: usar RETURNING *
+        await client.connect();
+
+        console.log("\n\n----- Cadastrar novo Item -----");
+        const nome = prompt("Nome do produto:");
+        const categoria = prompt("Categoria do produto:");
+        const preco = prompt("Preço do produto:");
+        const estoque = prompt("Estoque do produto:");
+        const descricao = prompt("Descrição do produto:");
+        
+        if (!nome || !categoria || !preco) {
+            console.log('❌ Nome, tipo e preço são obrigatórios.');
+            return;
+        }
+
+        const resultado = await client.query(
+            `INSERT INTO produtos (nome, categoria, preco, estoque, descricao)
+             VALUES ($1, $2, $3, $4, $5)
+             RETURNING *`,
+            [nome, categoria, preco, estoque, descricao]
+        );
+        
+        console.log('\n✅ Produtos cadastrado com sucesso!');
+        console.log(`   ID: ${resultado.rows[0].id} | ${resultado.rows[0].nome}`);
+ 
     } catch (erro) {
         console.log('Erro ao cadastrar produto:', erro.message);
     } finally {
@@ -44,9 +76,14 @@ async function buscarProdutoPorNome() {
     const client = criarCliente();
 
     try {
-        // TODO: pedir parte do nome
-        // TODO: SELECT com WHERE nome ILIKE $1
-        // Dica: usar `%${nome}%`
+        const itemEncontrado = produtos.find(produtos => produtos.nome === true);
+        if(itemEncontrado == true){console.log(`Item encontrado!`);
+            console.log(`Item:
+                    Nome: ${produtos.nome}\n
+                    Tipo: ${produtos.categoria}\n
+                    Quantidade: ${produtos.quantidade}`);
+        }
+        else{console.log(`Seu item não foi encontrado... item: ${produtos}`);}
     } catch (erro) {
         console.log('Erro ao buscar produto:', erro.message);
     } finally {
@@ -58,10 +95,33 @@ async function atualizarEstoque() {
     const client = criarCliente();
 
     try {
-        // TODO: pedir id
-        // TODO: pedir novo estoque
-        // TODO: UPDATE produtos SET estoque = $1 WHERE id = $2 RETURNING *
-        // TODO: avisar se id nao existe
+        await client.connect();
+
+        const lista = await client.query(
+            'SELECT id, nome, estoque FROM produtos ORDER BY nome'
+        );
+         
+        console.log("\n-*-*-*- Atualizar Estoque -*-*-*-");
+        
+        lista.rows.forEach(produtos => {
+            console.log(`[${produtos.id}] ${produtos.nome} - Estoque: ${produtos.estoque}`);
+        });
+
+        console.log('');
+        const id = prompt('ID do produto: ');
+        const novoEstoque = prompt('Novo estoque: ');
+
+        const resultado = await client.query(
+            `UPDATE produtos SET estoque = $1 WHERE id = $2 RETURNING nome, estoque`,
+            [novoEstoque, id]
+        );
+
+        if(resultado.rows.length === 0){
+            console.log("Erro: Produto não encontrado.");
+        }else{
+            console.log(`\n OK! ${resultado.rows[0].nome}: ${resultado.rows[0].estoque} unidades`);
+        }
+       
     } catch (erro) {
         console.log('Erro ao atualizar estoque:', erro.message);
     } finally {
@@ -73,10 +133,38 @@ async function removerProduto() {
     const client = criarCliente();
 
     try {
-        // TODO: pedir id
-        // TODO: buscar produto antes de deletar
-        // TODO: pedir confirmacao
-        // TODO: DELETE FROM produtos WHERE id = $1 RETURNING *
+        await client.connect();
+        
+        const lista = await client.query(
+            'SELECT id, nome, categoria FROM produtos ORDER BY nome'
+        );
+
+        console.log('\n REMOVER ITEM\n');
+        lista.rows.forEach(produtos => {
+            console.log(`[${produtos.id}] ${produtos.nome} (${produtos.categoria})`);
+        });
+
+        console.log('');
+        const id = prompt('ID do produto a remover: ');
+
+        const busca = await client.query(
+            'SELECT nome FROM produtos WHERE id = $1', [id]
+        );
+
+        if (busca.rows.length === 0) {
+            console.log('Produto não encontrado.');
+            return;
+        }
+
+        const confirmacao = prompt(
+            `⚠️  Remover "${busca.rows[0].nome}"? (s/n): `
+        );
+
+        if (confirmacao.toLowerCase() !== 's') {
+            console.log('Operação cancelada.');
+            return;
+        }
+
     } catch (erro) {
         console.log('Erro ao remover produto:', erro.message);
     } finally {
