@@ -33,11 +33,11 @@ function listarItens() {
 
 function buscarItemPorNome(nome) {
     const itemEncontrado = itens.find(item => item.nome === true);
-    if(itemEncontrado == true){console.log(`Item encontrado! ${
+    if(itemEncontrado == true){console.log(`Item encontrado!`);
         console.log(`Item:
                 Nome: ${itens.nome}\n
                 Tipo: ${itens.tipo}\n
-                Quantidade: ${itens.quantidade}`);}`);
+                Quantidade: ${itens.quantidade}`);;
     }
     else{console.log(`Seu item não foi encontrado... item: ${itens}`);}
 }
