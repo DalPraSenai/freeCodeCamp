@@ -36,6 +36,32 @@ app.get('/api/tarefas', async (req, res) => {
     }
 });
 
+app.post('/api/tarefas', async (req, res) => {
+    const client = criarCliente();
+    try {
+        await client.connect();
+        const { titulo, concluida } = req.body;
+
+        if (!titulo || !concluida) {
+            return res.status(400).json({
+                erro: 'Título, e Concluida são necessarios'
+            });
+        }
+
+        const resultado = await client.query(`
+            INSERT INTO tarefas (titulo, concluida)
+            VALUES ($1, $2)
+            RETURNING *
+        `, [titulo, concluida]);
+
+        res.status(201).json(resultado.rows[0]);
+    } catch (erro) {
+        res.status(500).json({ erro: erro.message });
+    } finally {
+        await client.end();
+    }
+});
+
 app.listen(3000, () => {
     console.log('Servidor rodando em http://localhost:3000');
 });
